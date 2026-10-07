@@ -1,0 +1,22 @@
+{
+  "kind": "evm_project",
+  "token": {
+    "contract": "LaunchToken",
+    "name": "Moss",
+    "symbol": "Moss",
+    "decimals": 18
+  },
+  "contracts": [
+    {
+      "contract": "MossExperimentRegistry",
+      "constructorArgs": ["$token", "$owner"]
+    }
+  ],
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 3000,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "Deploy src/LaunchToken.sol:LaunchToken with no constructor arguments, followed by src/MossExperimentRegistry.sol:MossExperimentRegistry with the deployed token and policy-resolved owner. Both constructors are nonpayable and require no initialization calls. The registry owner is immutable and must differ from zero, the factory, the token, and the registry itself. The registry begins empty: anyone may propose an already deployed experiment; only the owner may approve, replace, reject, or retire endorsements. Proposal contents and decision events preserve history. Direct runtime hashes are checked at approval and by isActive; they do not establish safety or detect changes behind proxies or mutable dependencies. The registry never executes an experiment, moves launch supply, changes token behavior, or controls the pool. This accepted implementation provides a public experiment catalog, not replaceable swap hooks; that limitation remains relevant to requirements review. Future experiment contracts and offchain research or document publication are outside this deployment. The factory supplies liquidity, the MerkleDistributor, and the initialization-only PoolInitializationGuard. Pool fee 3000 is the admission field, not a statement of the live trading fee; current policies determine the effective opening price. Network selection, ownership authorization, allocation policy, source publication, signed artifact linkage, admission, deployment, and frontend publication belong to the launch services. This manifest does not attest that those later checks or actions have completed."
+}
